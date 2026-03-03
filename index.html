@@ -1,190 +1,378 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kubernama Accounts | Premium Tax Consultancy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubernama Accounts | Premium Tax Consultancy</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
+    <style>
+        :root {
+            --primary: #00c6ff;
+            --secondary: #0072ff;
+            --bg-dark: #070e1a;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+        }
 
-body{
-    background:#0e1a2b;
-    color:white;
-    overflow-x:hidden;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
 
-header{
-    position:fixed;
-    width:100%;
-    padding:20px 8%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    backdrop-filter:blur(10px);
-    background:rgba(255,255,255,0.05);
-    z-index:100;
-}
+        body {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(0, 198, 255, 0.05), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 114, 255, 0.05), transparent 25%);
+        }
 
-header h2{
-    font-weight:700;
-    letter-spacing:1px;
-}
+        /* --- OVERLAY --- */
+        .overlay {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background: rgba(7, 14, 26, 0.95);
+            backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
 
-nav a{
-    color:white;
-    margin-left:25px;
-    text-decoration:none;
-    font-weight:500;
-    position:relative;
-}
+        .overlay h2 {
+            margin-bottom: 10px;
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .overlay p {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
 
-nav a::after{
-    content:'';
-    position:absolute;
-    width:0;
-    height:2px;
-    left:0;
-    bottom:-5px;
-    background:#00c6ff;
-    transition:0.3s;
-}
+        .role-btn-container {
+            display: flex;
+            gap: 20px;
+        }
 
-nav a:hover::after{
-    width:100%;
-}
+        .role-btn {
+            padding: 15px 50px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            background: var(--bg-card);
+            color: white;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-.hero{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:0 20px;
-    background:radial-gradient(circle at top left,#123d7a,#0e1a2b 60%);
-}
+        .role-btn:hover {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 198, 255, 0.2);
+        }
 
-.hero-content h1{
-    font-size:60px;
-    font-weight:800;
-    margin-bottom:20px;
-}
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
 
-.hero-content p{
-    font-size:20px;
-    opacity:0.8;
-    margin-bottom:30px;
-}
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(15px);
+            background: rgba(7, 14, 26, 0.8);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            z-index: 100;
+        }
 
-.btn{
-    padding:15px 35px;
-    border-radius:50px;
-    border:none;
-    background:linear-gradient(90deg,#00c6ff,#0072ff);
-    color:white;
-    font-weight:600;
-    cursor:pointer;
-    transition:0.3s;
-}
+        header h2 {
+            font-weight: 800;
+            font-size: 24px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-.btn:hover{
-    transform:scale(1.05);
-}
+        header h2 i {
+            color: var(--primary);
+        }
 
-.section{
-    padding:100px 8%;
-    text-align:center;
-}
+        nav a {
+            color: var(--text-light);
+            margin-left: 35px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            position: relative;
+            transition: 0.3s;
+        }
 
-.section h2{
-    font-size:40px;
-    margin-bottom:50px;
-}
+        nav a:hover {
+            color: var(--primary);
+        }
 
-.services{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:30px;
-}
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            left: 0;
+            bottom: -5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: 0.3s;
+        }
 
-.card{
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(10px);
-    padding:40px 20px;
-    border-radius:20px;
-    transition:0.4s;
-    border:1px solid rgba(255,255,255,0.1);
-}
+        nav a:hover::after {
+            width: 100%;
+        }
 
-.card:hover{
-    transform:translateY(-15px);
-    background:rgba(0,198,255,0.1);
-}
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
 
-.contact{
-    background:#081423;
-}
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            filter: blur(150px);
+            opacity: 0.15;
+            border-radius: 50%;
+            z-index: -1;
+        }
 
-footer{
-    text-align:center;
-    padding:30px;
-    background:#050d18;
-    font-size:14px;
-    opacity:0.6;
-}
+        .hero-content {
+            max-width: 800px;
+        }
 
-.overlay{
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:#0e1a2b;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    z-index:200;
-}
+        .hero-content h1 {
+            font-size: 64px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
 
-.overlay h2{
-    margin-bottom:30px;
-    font-size:30px;
-}
+        .hero-content h1 span {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-.role-btn{
-    margin:10px;
-    padding:15px 40px;
-    border-radius:40px;
-    border:none;
-    font-weight:600;
-    cursor:pointer;
-    background:linear-gradient(90deg,#00c6ff,#0072ff);
-    color:white;
-}
+        .hero-content p {
+            font-size: 20px;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
 
-.hidden{
-    display:none;
-}
-</style>
+        .btn {
+            padding: 18px 45px;
+            border-radius: 50px;
+            border: none;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 114, 255, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 25px rgba(0, 114, 255, 0.4);
+        }
+
+        /* --- SECTIONS COMMON --- */
+        .section {
+            padding: 100px 8%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- SERVICES --- */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 20px;
+            transition: 0.4s;
+            border: 1px solid rgba(255,255,255,0.05);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card i {
+            font-size: 35px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* --- CONTACT --- */
+        .contact {
+            background: rgba(255,255,255,0.02);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--bg-card);
+            padding: 25px 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
+            min-width: 300px;
+        }
+
+        .contact-item i {
+            font-size: 30px;
+            color: var(--primary);
+            background: rgba(0, 198, 255, 0.1);
+            padding: 15px;
+            border-radius: 50%;
+        }
+
+        .contact-item div h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .contact-item div p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #040912;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="overlay" id="roleSelect">
-    <h2>Select Your Role</h2>
-    <button class="role-btn" onclick="enterSite()">Admin</button>
-    <button class="role-btn" onclick="enterSite()">Client</button>
+    <h2>Welcome to Kubernama</h2>
+    <p>Please select your portal access level</p>
+    <div class="role-btn-container">
+        <button class="role-btn" onclick="enterSite()">
+            <i class="fas fa-user-shield"></i> Admin Access
+        </button>
+        <button class="role-btn" onclick="enterSite()">
+            <i class="fas fa-user-tie"></i> Client Portal
+        </button>
+    </div>
 </div>
 
 <header>
-    <h2>Kubernama Accounts</h2>
+    <h2><i class="fas fa-chart-pie"></i> Kubernama Accounts</h2>
     <nav>
         <a href="#">Home</a>
         <a href="#services">Services</a>
@@ -194,41 +382,151 @@ footer{
 
 <section class="hero">
     <div class="hero-content">
-        <h1>Elite Tax & Accounting Solutions</h1>
-        <p>Serving 500+ Clients in Rajkot Since 2017</p>
-        <button class="btn">Book Consultation</button>
+        <h1 class="gsap-hero">Elite Tax & <span>Accounting</span> Solutions</h1>
+        <p class="gsap-hero">Providing flawless financial compliance and advisory for 500+ businesses in Rajkot since 2017.</p>
+        <button class="btn gsap-hero" onclick="document.getElementById('contact').scrollIntoView()">Book a Free Consultation</button>
     </div>
 </section>
 
 <section class="section" id="services">
-    <h2>Our Services</h2>
+    <div class="section-header gsap-fade">
+        <h2>Our Premium Services</h2>
+        <p>Comprehensive financial, taxation, and compliance solutions tailored to your business needs.</p>
+    </div>
+    
     <div class="services">
-        <div class="card">Income Tax Return Filing</div>
-        <div class="card">GST Registration & Filing</div>
-        <div class="card">TDS Returns</div>
-        <div class="card">Business Registration</div>
+        <div class="card gsap-card">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <h3>Income Tax Return</h3>
+            <p>Accurate and timely filing of ITR for individuals, HUFs, partnerships, and corporate entities with maximum tax savings.</p>
+        </div>
+        <div class="card gsap-card">
+            <i class="fas fa-receipt"></i>
+            <h3>GST Services</h3>
+            <p>End-to-end GST solutions including new registration, monthly/quarterly return filings, and reconciliation.</p>
+        </div>
+        <div class="card gsap-card">
+            <i class="fas fa-percent"></i>
+            <h3>TDS & TCS Returns</h3>
+            <p>Calculations, deductions, and quarterly filing of TDS and TCS returns ensuring zero penalty compliance.</p>
+        </div>
+        <div class="card gsap-card">
+            <i class="fas fa-building"></i>
+            <h3>Business Registration</h3>
+            <p>Hassle-free incorporation of Pvt Ltd Companies, LLPs, Partnership Deeds, and MSME (Udyam) registrations.</p>
+        </div>
+        <div class="card gsap-card">
+            <i class="fas fa-book-open"></i>
+            <h3>Bookkeeping</h3>
+            <p>Professional day-to-day accounting and ledger maintenance using modern software like Tally Prime and Zoho.</p>
+        </div>
+        <div class="card gsap-card">
+            <i class="fas fa-search-dollar"></i>
+            <h3>Audit Support</h3>
+            <p>Thorough preparation of financial statements and active assistance during statutory and tax audits.</p>
+        </div>
+        <div class="card gsap-card">
+            <i class="fas fa-users"></i>
+            <h3>Payroll Processing</h3>
+            <p>Complete payroll management including salary structuring, PF, ESI, and Professional Tax compliance.</p>
+        </div>
+        <div class="card gsap-card">
+            <i class="fas fa-chart-line"></i>
+            <h3>Project Reports</h3>
+            <p>Detailed CMA data and projected financial reports for securing business loans and bank overdraft facilities.</p>
+        </div>
     </div>
 </section>
 
 <section class="section contact" id="contact">
-    <h2>Contact Us</h2>
-    <p>📞 9428349489</p>
-    <p>📧 joshi.pmj@gmail.com</p>
-    <p>📍 320, Amar Arcade, Lodhawad Chowk, Rajkot - 360001</p>
+    <div class="section-header gsap-fade">
+        <h2>Get In Touch</h2>
+        <p>Ready to streamline your finances? Reach out to us today.</p>
+    </div>
+
+    <div class="contact-container">
+        <div class="contact-item gsap-fade">
+            <i class="fas fa-phone-alt"></i>
+            <div>
+                <h4>Call Us</h4>
+                <p>+91 94283 49489</p>
+            </div>
+        </div>
+        <div class="contact-item gsap-fade">
+            <i class="fas fa-envelope"></i>
+            <div>
+                <h4>Email Us</h4>
+                <p>joshi.pmj@gmail.com</p>
+            </div>
+        </div>
+        <div class="contact-item gsap-fade">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+                <h4>Visit Us</h4>
+                <p>320, Amar Arcade, Lodhawad Chowk<br>Rajkot, Gujarat - 360001</p>
+            </div>
+        </div>
+    </div>
 </section>
 
 <footer>
-© 2025 Kubernama Accounts | All Rights Reserved
+    © 2026 Kubernama Accounts | Designed for Excellence | All Rights Reserved
 </footer>
 
 <script>
-function enterSite(){
-    document.getElementById("roleSelect").classList.add("hidden");
-}
+    // Register GSAP ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
 
-gsap.from("header",{y:-100,opacity:0,duration:1});
-gsap.from(".hero-content h1",{opacity:0,y:50,duration:1,delay:0.5});
-gsap.from(".card",{opacity:0,y:50,stagger:0.2,duration:1,delay:1});
+    // Overlay Exit Animation
+    function enterSite(){
+        const overlay = document.getElementById("roleSelect");
+        overlay.classList.add("hidden");
+        
+        // Trigger initial hero animations only AFTER clicking enter
+        setTimeout(initHeroAnimation, 300);
+    }
+
+    // Hero Animations
+    function initHeroAnimation() {
+        gsap.from("header", {y: -100, opacity: 0, duration: 1, ease: "power3.out"});
+        gsap.from(".gsap-hero", {
+            opacity: 0, 
+            y: 50, 
+            duration: 1, 
+            stagger: 0.2, 
+            ease: "power3.out"
+        });
+    }
+
+    // Scroll Animations for Services & Contact
+    window.addEventListener("load", function() {
+        // Fade in headers
+        gsap.utils.toArray('.gsap-fade').forEach(elem => {
+            gsap.from(elem, {
+                scrollTrigger: {
+                    trigger: elem,
+                    start: "top 80%",
+                },
+                opacity: 0,
+                y: 30,
+                duration: 1,
+                ease: "power2.out"
+            });
+        });
+
+        // Stagger in service cards
+        gsap.from(".gsap-card", {
+            scrollTrigger: {
+                trigger: ".services",
+                start: "top 80%",
+            },
+            opacity: 0,
+            y: 50,
+            stagger: 0.15,
+            duration: 0.8,
+            ease: "power2.out"
+        });
+    });
 </script>
 
 </body>
