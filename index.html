@@ -3,15 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kubernama Accounts | ITR & GST Services in Rajkot</title>
+<title>Kubernama Accounts</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
 <style>
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: #f5f7fa;
-    color: #333;
+    background: #f4f7fb;
+    overflow-x: hidden;
 }
+
 header {
     background: #0a1f44;
     color: white;
@@ -20,118 +23,134 @@ header {
     justify-content: space-between;
     align-items: center;
 }
-header h1 { margin: 0; font-size: 22px; }
-nav a {
-    color: white;
-    text-decoration: none;
-    margin-left: 20px;
-    font-weight: 500;
-}
+
 .hero {
-    background: linear-gradient(to right, #0a1f44, #123d7a);
+    background: linear-gradient(135deg,#0a1f44,#123d7a);
     color: white;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h1 {
+    font-size: 42px;
+}
+
+.section {
     padding: 80px 8%;
     text-align: center;
 }
-.hero h2 { font-size: 40px; margin-bottom: 20px; }
-.hero p { font-size: 18px; max-width: 700px; margin: auto; }
-.section {
-    padding: 60px 8%;
-    text-align: center;
-}
-.services {
+
+.card-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
     gap: 30px;
     margin-top: 40px;
 }
+
 .card {
     background: white;
     padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
 }
-.card h3 { margin-top: 0; color: #123d7a; }
-.contact {
-    background: #0a1f44;
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    background: #123d7a;
     color: white;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 10px;
 }
-.contact a {
-    color: #4fc3f7;
-    text-decoration: none;
+
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #0a1f44;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    flex-direction: column;
+    z-index: 1000;
 }
+
+.overlay h2 {
+    margin-bottom: 30px;
+}
+
+.hidden {
+    display: none;
+}
+
 footer {
     background: #08162e;
     color: white;
     text-align: center;
     padding: 20px;
 }
-.whatsapp-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #25D366;
-    color: white;
-    padding: 15px 20px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: bold;
-}
 </style>
 </head>
 
 <body>
 
+<div class="overlay" id="roleSelect">
+    <h2>Welcome to Kubernama Accounts</h2>
+    <p>Please select your role</p>
+    <div>
+        <button onclick="enterSite('admin')">Admin</button>
+        <button onclick="enterSite('client')">Client</button>
+    </div>
+</div>
+
 <header>
-    <h1>Kubernama Accounts</h1>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
-    </nav>
+    <h2>Kubernama Accounts</h2>
 </header>
 
 <section class="hero">
-    <h2>Trusted Accounting & Tax Services Since 2017</h2>
-    <p>Serving 500+ satisfied clients in Rajkot with reliable ITR Filing, GST Services and Professional Accounting Solutions.</p>
+    <h1>Trusted Accounting & Tax Experts Since 2017</h1>
+    <p>Serving 500+ Clients in Rajkot with professional ITR & GST Services.</p>
 </section>
 
-<section class="section" id="services">
+<section class="section">
     <h2>Our Services</h2>
-    <div class="services">
-        <div class="card">
-            <h3>Income Tax Return Filing</h3>
-            <p>Accurate and timely ITR filing services for individuals and businesses.</p>
-        </div>
-        <div class="card">
-            <h3>GST Registration & Filing</h3>
-            <p>Complete GST solutions including registration, returns, and compliance.</p>
-        </div>
-        <div class="card">
-            <h3>TDS Returns</h3>
-            <p>Professional handling of TDS calculation and filing.</p>
-        </div>
-        <div class="card">
-            <h3>Business Registration</h3>
-            <p>Company, MSME, Partnership & Proprietorship registration assistance.</p>
-        </div>
+    <div class="card-container">
+        <div class="card">Income Tax Return Filing</div>
+        <div class="card">GST Registration & Filing</div>
+        <div class="card">TDS Returns</div>
+        <div class="card">Business Registration</div>
     </div>
 </section>
 
-<section class="section contact" id="contact">
+<section class="section">
     <h2>Contact Us</h2>
-    <p><strong>Phone:</strong> <a href="tel:9428349489">9428349489</a></p>
-    <p><strong>Email:</strong> <a href="mailto:joshi.pmj@gmail.com">joshi.pmj@gmail.com</a></p>
-    <p><strong>Address:</strong> 320, Amar Arcade, Lodhawad Chowk, Rajkot - 360001</p>
+    <p>📞 9428349489</p>
+    <p>📧 joshi.pmj@gmail.com</p>
+    <p>📍 320, Amar Arcade, Lodhawad Chowk, Rajkot - 360001</p>
 </section>
 
 <footer>
-    © 2025 Kubernama Accounts | All Rights Reserved
+© 2025 Kubernama Accounts | All Rights Reserved
 </footer>
 
-<a class="whatsapp-btn" href="https://wa.me/919428349489" target="_blank">
-Chat on WhatsApp
-</a>
+<script>
+function enterSite(role){
+    document.getElementById("roleSelect").classList.add("hidden");
+    alert("You selected: " + role + " (Login system can be added later)");
+}
+
+gsap.from("header", {y:-80, opacity:0, duration:1});
+gsap.from(".hero h1", {opacity:0, y:50, duration:1, delay:0.5});
+gsap.from(".card", {opacity:0, y:50, duration:1, stagger:0.2, delay:1});
+</script>
 
 </body>
 </html>
