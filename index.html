@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kubernama Accounts | Premium Tax Consultancy</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -13,12 +13,14 @@
 
     <style>
         :root {
-            --primary: #00c6ff;
-            --secondary: #0072ff;
-            --bg-dark: #070e1a;
-            --bg-card: rgba(255, 255, 255, 0.03);
-            --text-light: #f8fafc;
-            --text-muted: #94a3b8;
+            /* Matched to the deep red in your logo */
+            --primary: #b22222; 
+            --primary-light: #d32f2f;
+            --secondary: #1a1a1a;
+            --bg-light: #ffffff;
+            --bg-alt: #f4f6f8;
+            --text-dark: #2c3e50;
+            --text-muted: #64748b;
         }
 
         * {
@@ -30,12 +32,9 @@
         }
 
         body {
-            background: var(--bg-dark);
-            color: var(--text-light);
+            background: var(--bg-light);
+            color: var(--text-dark);
             overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(0, 198, 255, 0.05), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(0, 114, 255, 0.05), transparent 25%);
         }
 
         /* --- OVERLAY --- */
@@ -43,8 +42,7 @@
             position: fixed;
             width: 100%;
             height: 100vh;
-            background: rgba(7, 14, 26, 0.95);
-            backdrop-filter: blur(15px);
+            background: var(--bg-light);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -55,11 +53,9 @@
 
         .overlay h2 {
             margin-bottom: 10px;
-            font-size: 36px;
-            font-weight: 700;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 40px;
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
         }
         
         .overlay p {
@@ -74,13 +70,13 @@
 
         .role-btn {
             padding: 15px 50px;
-            border-radius: 50px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 5px;
+            border: 2px solid var(--primary);
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            background: var(--bg-card);
-            color: white;
+            background: transparent;
+            color: var(--primary);
             transition: 0.3s;
             display: flex;
             align-items: center;
@@ -88,10 +84,10 @@
         }
 
         .role-btn:hover {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-color: transparent;
+            background: var(--primary);
+            color: white;
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 198, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(178, 34, 34, 0.2);
         }
 
         .hidden {
@@ -103,34 +99,28 @@
         header {
             position: fixed;
             width: 100%;
-            padding: 20px 8%;
+            padding: 15px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            backdrop-filter: blur(15px);
-            background: rgba(7, 14, 26, 0.8);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
             z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         }
 
-        header h2 {
-            font-weight: 800;
-            font-size: 24px;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        header h2 i {
-            color: var(--primary);
+        /* Replaced text logo with an image tag placeholder */
+        .logo-container img {
+            height: 60px; /* Adjust based on your logo size */
+            width: auto;
         }
 
         nav a {
-            color: var(--text-light);
+            color: var(--secondary);
             margin-left: 35px;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 15px;
             position: relative;
             transition: 0.3s;
@@ -147,7 +137,7 @@
             height: 2px;
             left: 0;
             bottom: -5px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            background: var(--primary);
             transition: 0.3s;
         }
 
@@ -163,61 +153,53 @@
             align-items: center;
             text-align: center;
             padding: 0 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #f4f6f8 100%);
             position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: var(--primary);
-            filter: blur(150px);
-            opacity: 0.15;
-            border-radius: 50%;
-            z-index: -1;
         }
 
         .hero-content {
             max-width: 800px;
+            margin-top: 50px;
         }
 
         .hero-content h1 {
-            font-size: 64px;
+            font-size: 58px;
             font-weight: 800;
             line-height: 1.2;
             margin-bottom: 20px;
+            color: var(--secondary);
         }
 
         .hero-content h1 span {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
         }
 
         .hero-content p {
             font-size: 20px;
             color: var(--text-muted);
             margin-bottom: 40px;
-            font-weight: 300;
+            font-weight: 400;
         }
 
         .btn {
             padding: 18px 45px;
-            border-radius: 50px;
+            border-radius: 5px;
             border: none;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            background: var(--primary);
             color: white;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(0, 114, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(178, 34, 34, 0.2);
         }
 
         .btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 25px rgba(0, 114, 255, 0.4);
+            background: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(178, 34, 34, 0.3);
         }
 
         /* --- SECTIONS COMMON --- */
@@ -232,7 +214,8 @@
 
         .section-header h2 {
             font-size: 40px;
-            font-weight: 700;
+            font-weight: 800;
+            color: var(--secondary);
             margin-bottom: 15px;
         }
 
@@ -250,12 +233,12 @@
         }
 
         .card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
+            background: var(--bg-light);
             padding: 40px 30px;
-            border-radius: 20px;
+            border-radius: 10px;
             transition: 0.4s;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
             text-align: left;
             position: relative;
             overflow: hidden;
@@ -268,7 +251,7 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            background: var(--primary);
             transform: scaleX(0);
             transform-origin: left;
             transition: 0.4s;
@@ -276,8 +259,7 @@
 
         .card:hover {
             transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
         }
 
         .card:hover::before {
@@ -291,9 +273,10 @@
         }
 
         .card h3 {
-            font-size: 22px;
+            font-size: 20px;
             margin-bottom: 15px;
-            font-weight: 600;
+            font-weight: 700;
+            color: var(--secondary);
         }
 
         .card p {
@@ -304,8 +287,7 @@
 
         /* --- CONTACT --- */
         .contact {
-            background: rgba(255,255,255,0.02);
-            border-top: 1px solid rgba(255,255,255,0.05);
+            background: var(--bg-alt);
         }
 
         .contact-container {
@@ -319,23 +301,24 @@
             display: flex;
             align-items: center;
             gap: 20px;
-            background: var(--bg-card);
-            padding: 25px 40px;
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.05);
-            min-width: 300px;
+            background: var(--bg-light);
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            min-width: 320px;
         }
 
         .contact-item i {
-            font-size: 30px;
+            font-size: 28px;
             color: var(--primary);
-            background: rgba(0, 198, 255, 0.1);
+            background: rgba(178, 34, 34, 0.1);
             padding: 15px;
             border-radius: 50%;
         }
 
         .contact-item div h4 {
             font-size: 18px;
+            color: var(--secondary);
             margin-bottom: 5px;
         }
 
@@ -348,10 +331,13 @@
         footer {
             text-align: center;
             padding: 30px;
-            background: #040912;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            color: var(--text-muted);
+            background: var(--secondary);
+            color: white;
             font-size: 14px;
+        }
+        
+        footer span {
+            color: var(--primary-light);
         }
     </style>
 </head>
@@ -359,7 +345,7 @@
 <body>
 
 <div class="overlay" id="roleSelect">
-    <h2>Welcome to Kubernama</h2>
+    <h2>|| कुबेरनामा ||</h2>
     <p>Please select your portal access level</p>
     <div class="role-btn-container">
         <button class="role-btn" onclick="enterSite()">
@@ -372,7 +358,9 @@
 </div>
 
 <header>
-    <h2><i class="fas fa-chart-pie"></i> Kubernama Accounts</h2>
+    <div class="logo-container">
+        <img src="logo1.jpg" alt="Kubernama Accounts Logo">
+    </div>
     <nav>
         <a href="#">Home</a>
         <a href="#services">Services</a>
@@ -383,7 +371,7 @@
 <section class="hero">
     <div class="hero-content">
         <h1 class="gsap-hero">Elite Tax & <span>Accounting</span> Solutions</h1>
-        <p class="gsap-hero">Providing flawless financial compliance and advisory for 500+ businesses in Rajkot since 2017.</p>
+        <p class="gsap-hero">Providing flawless financial compliance and advisory for businesses in Rajkot.</p>
         <button class="btn gsap-hero" onclick="document.getElementById('contact').scrollIntoView()">Book a Free Consultation</button>
     </div>
 </section>
@@ -413,22 +401,12 @@
         <div class="card gsap-card">
             <i class="fas fa-building"></i>
             <h3>Business Registration</h3>
-            <p>Hassle-free incorporation of Pvt Ltd Companies, LLPs, Partnership Deeds, and MSME (Udyam) registrations.</p>
+            <p>Hassle-free incorporation of Pvt Ltd Companies, LLPs, Partnership Deeds, and MSME registrations.</p>
         </div>
         <div class="card gsap-card">
             <i class="fas fa-book-open"></i>
             <h3>Bookkeeping</h3>
-            <p>Professional day-to-day accounting and ledger maintenance using modern software like Tally Prime and Zoho.</p>
-        </div>
-        <div class="card gsap-card">
-            <i class="fas fa-search-dollar"></i>
-            <h3>Audit Support</h3>
-            <p>Thorough preparation of financial statements and active assistance during statutory and tax audits.</p>
-        </div>
-        <div class="card gsap-card">
-            <i class="fas fa-users"></i>
-            <h3>Payroll Processing</h3>
-            <p>Complete payroll management including salary structuring, PF, ESI, and Professional Tax compliance.</p>
+            <p>Professional day-to-day accounting and ledger maintenance to keep your books pristine year-round.</p>
         </div>
         <div class="card gsap-card">
             <i class="fas fa-chart-line"></i>
@@ -463,14 +441,14 @@
             <i class="fas fa-map-marker-alt"></i>
             <div>
                 <h4>Visit Us</h4>
-                <p>320, Amar Arcade, Lodhawad Chowk<br>Rajkot, Gujarat - 360001</p>
+                <p>320, Amar Arcade, Lodhavad Chowk<br>Rajkot, Gujarat - 360001</p>
             </div>
         </div>
     </div>
 </section>
 
 <footer>
-    © 2026 Kubernama Accounts | Designed for Excellence | All Rights Reserved
+    © 2026 <span>Kubernama Accounts</span> | Designed for Excellence | All Rights Reserved
 </footer>
 
 <script>
@@ -500,7 +478,6 @@
 
     // Scroll Animations for Services & Contact
     window.addEventListener("load", function() {
-        // Fade in headers
         gsap.utils.toArray('.gsap-fade').forEach(elem => {
             gsap.from(elem, {
                 scrollTrigger: {
@@ -514,7 +491,6 @@
             });
         });
 
-        // Stagger in service cards
         gsap.from(".gsap-card", {
             scrollTrigger: {
                 trigger: ".services",
